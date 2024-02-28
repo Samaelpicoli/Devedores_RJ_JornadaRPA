@@ -9,9 +9,9 @@ O site é uma aplicação web para treinamento de RPA, onde deve ser realizado o
 Ao final da extração e tratamento dos dados, o robô irá transformar o DataFrame em um arquivo CSV que ficará salvo na pasta do projeto.
 
 ## Layout da web
-![Web 1](https://github.com/Samaelpicoli/Online_Grocery_Ordering/blob/main/assets/web1.PNG)
+![Web 1](https://github.com/Samaelpicoli/Devedores_RJ_JornadaRPA/blob/main/assets/login.PNG)
 
-![Web 2](https://github.com/Samaelpicoli/Online_Grocery_Ordering/blob/main/assets/acuracia.png)
+![Web 2](https://github.com/Samaelpicoli/Devedores_RJ_JornadaRPA/blob/main/assets/exemplo_tabela.PNG)
 
 
 # Tecnologias Utilizadas
