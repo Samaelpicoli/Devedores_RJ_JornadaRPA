@@ -25,7 +25,9 @@ Estão listadas no arquivo requirements.txt.
 
 ## Sobre o código
 
-O projeto foi dividido em módulos, onde um arquivo faz o login no site inserindo usuário, senha e o cálculo que está definido em uma label (login.py), o arquivo navegacao.py realiza a navegação e a extração de ambas as tabelas e encerra o browser, e o arquivo dados.py é onde ele pega os DataFrames que a função de extração de tabelas irá retornar (ela é chamada 2 vezes para extrair diferentes tabelas), unirá os 2 DataFrames e fará o filtro dos dados excluindo as linhas que a coluna Pagamento está como SIM e a cidade do cliente é diferente de Rio de Janeiro, ao fim ele salvará esse novo DataFrame em um arquivo CSV na pasta do projeto.
+O projeto foi dividido em módulos, onde um arquivo faz o login no site inserindo usuário, senha e o cálculo que está definido em uma label (login.py), o arquivo navegacao.py realiza a navegação e a extração de ambas as tabelas e encerra o browser, 
+
+e o arquivo dados.py é onde ele pega os DataFrames que a função de extração de tabelas irá retornar (ela é chamada 2 vezes para extrair diferentes tabelas), unirá os 2 DataFrames e fará o filtro dos dados excluindo as linhas que a coluna Pagamento está como SIM e a cidade do cliente é diferente de Rio de Janeiro, ao fim ele salvará esse novo DataFrame em um arquivo CSV na pasta do projeto.
 
 Os arquivos são chamados dentro do arquivo main que os executa.
 
