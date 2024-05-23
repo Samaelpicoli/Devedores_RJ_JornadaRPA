@@ -1,39 +1,52 @@
-from botcity.web import WebBot, Browser, By, table_to_dict
-from webdriver_manager.chrome import ChromeDriverManager
-import login
-import navegacao
-import dados
+from desafio import DesafioDevedores
+from config import site, usuario, senha, loop, state
 
-#Inicializando o WebBot
-bot = WebBot()
-bot.headless = False
-bot.browser = Browser.CHROME
-bot.driver_path = ChromeDriverManager().install()
 
-def main():
+while loop == 'ON':
 
-    #Dados que serão utilizados como parâmetros nas funções
-    site = 'https://jornadarpa.com.br/alunos/desafios/dataextractioncrm/login.html'
-    usuario = 'aluno'
-    senha = 'desafiosrpa'
-    timeout = 40000
+    match state:
+        
+        case 'INITIALIZATION':
+            bot = DesafioDevedores(site)
+            bot.login(usuario, senha)
+            state = 'GET'
+            continue
 
-    login.realizar_login(bot, By, timeout, site, usuario, senha)
+        case 'GET':
+            if bot.etapa_navegacao == 'inicial':
+                bot.navegacao_inicial()
+                state = 'PROCESS'
+                continue
+            elif bot.etapa_navegacao == 'final':
+                bot.navegacao_final()
+                state = 'PROCESS'
+                continue
+            else:
+                state = 'END'
+                continue
+        
+        case 'PROCESS':
+            if bot.etapa_navegacao == 'inicial':
+                pagamentos_pendentes = bot.extracao_tabela('pagamentos')
+                state = 'GET'
+                bot.etapa_navegacao = 'final'
+                continue
+            
+            elif bot.etapa_navegacao == 'final':
+                estado = bot.extracao_tabela('estados')
+                state = 'GET'
+                bot.etapa_navegacao = None
+                continue    
 
-    navegacao.primeira_navegacao(bot, By, timeout)
+        case 'END':
+            bot.processar_e_salvar_dados(pagamentos_pendentes, estado)
+            bot.encerra_browser()
+            loop = 'OFF'
+        
+print('FIM')
 
-    primeiro_df = navegacao.extracao_tabelas(bot, By, timeout, table_to_dict, 'pagamentos')
 
-    navegacao.segunda_navegacao(bot, By, timeout)
 
-    segundo_df = navegacao.extracao_tabelas(bot, By, timeout, table_to_dict, 'clientes')
-
-    dados.concatenar_e_filtrar_dados(primeiro_df, segundo_df)
-
-    navegacao.encerra_browser(bot, By, timeout)
-
-if __name__ == '__main__':
-    main()
  
 
 
